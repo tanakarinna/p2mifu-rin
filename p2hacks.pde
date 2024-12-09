@@ -77,3 +77,7 @@ void keyPressed() {
     typedText += key;
   }
 }
+
+
+
+// commit てすと
