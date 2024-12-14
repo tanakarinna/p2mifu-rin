@@ -25,7 +25,13 @@ PImage komento;
 PImage syuryo;
 PImage puropo;
 PImage saisei;
-PImage currentImage;
+PImage arai;
+PImage mono;
+PImage pu;
+PImage rin;
+PImage currentImage1;
+PImage currentImage2;
+PImage currentImage3;
 int selectedCamera = 0; 
 float startTime1,startTime2;
 boolean isRectangleVisible1 = false,isRectangleVisible2 = false;
@@ -44,7 +50,9 @@ void setup() {
   startTime = millis(); 
   PFont font = createFont("Meiryo", 90); 
   textFont(font);
-  currentImage = puropo;
+  currentImage1 = puropo;
+  currentImage2 = arai;
+  currentImage3 = pu;
 
   String[] cameras = Capture.list(); 
   
@@ -69,6 +77,11 @@ void setup() {
   syuryo = loadImage("syuryo.png");
   puropo = loadImage("puropo.png");
   saisei = loadImage("saisei.png");
+  arai = loadImage("arai.png");
+  mono = loadImage("mono.png");
+  pu = loadImage("pu.png");
+  rin = loadImage("rin.png");
+
 }
 
 
@@ -97,7 +110,11 @@ void draw() {
   }else if(scene == 3){
     memory();
   }else if(scene == 4){
-    movie();
+    movie1();
+  }else if(scene == 5){
+    movie2();
+  }else if(scene == 6){
+    movie3();
   }
  
 
@@ -127,15 +144,36 @@ void draw() {
   } else if ((mouseX >= 1232 && mouseX <= 1232 + 294 && mouseY >= 48 && mouseY <= 48 + 134)&&(scene==1)){
     scene = 3;
   } else if ((mouseX >= 111 && mouseX <= 111 + 368 && mouseY >= 405 && mouseY <= 405 + 289)&&(scene==3)){
-    currentImage = puropo;
+    currentImage1 = puropo;
     scene = 4;//動画を再生する画面に移る！！！！
-  } else if ((mouseX >= 1274 && mouseX <= 1274 + 294 && mouseY >= 1051 && mouseY <= 1051 + 134)&&(scene==4)){
+  }else if ((mouseX >= 615 && mouseX <= 615 + 368 && mouseY >= 405 && mouseY <= 405 + 289)&&(scene==3)){
+    currentImage2 = arai;
+    scene = 5;//動画を再生する画面に移る！！！！
+  }else if ((mouseX >= 1119 && mouseX <= 1119 + 368 && mouseY >= 405 && mouseY <= 405 + 289)&&(scene==3)){
+    currentImage3 = pu;
+    scene = 6;//動画を再生する画面に移る！！！！
+  }
+   else if ((mouseX >= 1274 && mouseX <= 1274 + 294 && mouseY >= 1051 && mouseY <= 1051 + 134)&&(scene==4||scene == 5||scene == 6)){
     scene = 3;//メモリーにもどる！！！！
   } else if((mouseX >= 701 && mouseX <= 701 + 197 && mouseY >= 528 && mouseY <= 528 + 197)&&(scene==4)){
-    if (currentImage==saisei) {
-      currentImage = puropo;  // img1 -> img2 に切り替え
+    if (currentImage1==saisei) {
+      currentImage1 = puropo;  // img1 -> img2 に切り替え
     } else {
-      currentImage = saisei;  // img2 -> img1 に切り替え
+      currentImage1 = saisei;  // img2 -> img1 に切り替え
+    }//再生と停止を切り替える
+  }
+    else if((mouseX >= 701 && mouseX <= 701 + 197 && mouseY >= 528 && mouseY <= 528 + 197)&&(scene==5)){
+    if (currentImage2==arai) {
+      currentImage2 = mono;  // img1 -> img2 に切り替え
+    } else {
+      currentImage2 = arai;  // img2 -> img1 に切り替え
+    }
+  }//再生と停止を切り替える
+    else if((mouseX >= 701 && mouseX <= 701 + 197 && mouseY >= 528 && mouseY <= 528 + 197)&&(scene==6)){
+    if (currentImage3==pu) {
+      currentImage3 = rin;  // img1 -> img2 に切り替え
+    } else {
+      currentImage3 = pu;  // img2 -> img1 に切り替え
     }//再生と停止を切り替える
   }
 }
