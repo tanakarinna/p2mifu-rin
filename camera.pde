@@ -1,17 +1,17 @@
 void camera(){
- background(0); // 背景を黒でクリア
+ background(0); 
  if (cam.available()) {
-    cam.read(); // 新しいフレームを読み込む
+    cam.read(); 
   }
 
  
-  image(cam, 0, 0, width, height);  // 入力された文字列を表示
-  fill(255, 0, 0); // 文字色（赤）
-  text(typedText, 20, height - 30); // 左下に文字を描画
+  image(cam, 0, 0, width, height);  
+  fill(255, 0, 0); 
+  text(typedText, 20, height - 30); 
    if (millis() - lastTime1 > 5000) { // 5秒ごと
     lastTime1 = millis(); // 現在の時間を記録
     isRectangleVisible1 = true; // 長方形を表示
-    startTime1 = millis(); // 長方形が表示され始めた時間
+    startTime1 = millis(); //
   }
 
   if (isRectangleVisible1) {
@@ -32,10 +32,10 @@ void camera(){
   
   if (isRectangleVisible2) {
     // 長方形を透明度を持たせて描画
-    fill(255, 255, 255, 70); // 白色で透明度150
-    rect(0,0, 1600, 1200); // ランダムな位置に200x100の長方形を描画
+    fill(255, 255, 255, 70); // 
+    rect(0,0, 1600, 1200); 
     
-    // 0.05秒後に長方形を非表示
+  
     if (millis() - startTime2 > 30) {
       isRectangleVisible2 = false;
     }
@@ -60,21 +60,7 @@ void keyPressed() {
     // 他のキーが押された場合、文字を追加
     typedText += key;
   }
-  //  if (millis() - lastTime > 6000) { // 6秒ごと
-  //   lastTime = millis(); // 現在の時間を記録
-  //   isRectangleVisible = true; // 長方形を表示
-  //   startTime = millis(); // 長方形が表示され始めた時間
-  // }
-
-  // if (isRectangleVisible) {
-  //   // 長方形を透明度を持たせて描画
-  //   fill(255, 255, 255); // 白色で透明度100
-  //   rect(0,0, 1600, 1200); // ランダムな位置に200x100の長方形を描画
-    
-  //   // 0.3秒後に長方形を非表示
-  //   if (millis() - startTime > 300) {
-  //     isRectangleVisible = false;
-  //   }
+  
 }
 
 // カメラを切り替える関数
