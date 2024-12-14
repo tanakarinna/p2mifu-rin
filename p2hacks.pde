@@ -17,6 +17,9 @@ PImage sinbun;
 PImage hiduke;
 PImage komento;
 PImage syuryo;
+PImage puropo;
+PImage saisei;
+PImage currentImage;
 int selectedCamera = 0; 
 float startTime1,startTime2;
 boolean isRectangleVisible1 = false,isRectangleVisible2 = false;
@@ -30,6 +33,7 @@ void setup() {
   startTime = millis(); 
   PFont font = createFont("Meiryo", 30); 
   textFont(font);
+  currentImage = puropo;
 
   String[] cameras = Capture.list(); 
   
@@ -52,6 +56,8 @@ void setup() {
   hiduke = loadImage("hiduke.png");
   komento = loadImage("komento.png");
   syuryo = loadImage("syuryo.png");
+  puropo = loadImage("puropo.png");
+  saisei = loadImage("saisei.png");
 }
 
 
@@ -91,7 +97,17 @@ void draw() {
     scene = 1; // rect(421, 784, 761, 457)をクリックするとscene = 1
     startTime = millis();
   } else if ((mouseX >= 1232 && mouseX <= 1232 + 294 && mouseY >= 48 && mouseY <= 48 + 134)&&(scene==1)){
-    scene = 0;
+    scene = 3;
+  } else if ((mouseX >= 111 && mouseX <= 111 + 368 && mouseY >= 405 && mouseY <= 405 + 289)&&(scene==3)){
+    currentImage = puropo;
+    scene = 4;//動画を再生する画面に移る！！！！
+  } else if ((mouseX >= 1274 && mouseX <= 1274 + 294 && mouseY >= 1051 && mouseY <= 1051 + 134)&&(scene==4)){
+    scene = 3;//メモリーにもどる！！！！
+  } else if((mouseX >= 701 && mouseX <= 701 + 197 && mouseY >= 528 && mouseY <= 528 + 197)&&(scene==4)){
+    if (currentImage==saisei) {
+      currentImage = puropo;  // img1 -> img2 に切り替え
+    } else {
+      currentImage = saisei;  // img2 -> img1 に切り替え
+    }//再生と停止を切り替える
   }
-  
 }
