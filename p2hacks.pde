@@ -21,11 +21,13 @@ int selectedCamera = 0;
 float startTime1,startTime2;
 boolean isRectangleVisible1 = false,isRectangleVisible2 = false;
 float lastTime1 = 0,lastTime2 = 0;
-
+int startTime = 0; 
+int elapsedTime = 0;
 
 void setup() {
   size(1600, 1200); 
   frameRate(30); 
+  startTime = millis(); 
   PFont font = createFont("Meiryo", 30); 
   textFont(font);
 
@@ -54,6 +56,7 @@ void setup() {
 
 
 void draw() {
+ 
   if (scene == 1 && !player.isPlaying()) {
     player.loop(); 
   } else if (scene != 1 && player.isPlaying()) {
@@ -64,6 +67,7 @@ void draw() {
     top();
   }else if(scene == 1){
     camera();
+    elapsedTime = (millis() - startTime)/1000;
   }else if(scene == 2){
     asobikata();
   }else if(scene == 3){
@@ -85,6 +89,7 @@ void draw() {
     scene = 2; // rect(1416, 53, 108, 108)をクリックするとscene = 2
   } else if ((mouseX >= 421 && mouseX <= 421 + 761 && mouseY >= 784 && mouseY <= 784 + 457)&&(scene==0)) {
     scene = 1; // rect(421, 784, 761, 457)をクリックするとscene = 1
+    startTime = millis();
   } else if ((mouseX >= 1232 && mouseX <= 1232 + 294 && mouseY >= 48 && mouseY <= 48 + 134)&&(scene==1)){
     scene = 0;
   }
