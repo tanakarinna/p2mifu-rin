@@ -16,6 +16,7 @@ PImage top;
 PImage sinbun;
 PImage hiduke;
 PImage komento;
+PImage syuryo;
 int selectedCamera = 0; 
 float startTime1,startTime2;
 boolean isRectangleVisible1 = false,isRectangleVisible2 = false;
@@ -48,7 +49,7 @@ void setup() {
   sinbun = loadImage("sinbun.png");
   hiduke = loadImage("hiduke.png");
   komento = loadImage("komento.png");
- 
+  syuryo = loadImage("syuryo.png");
 }
 
 
@@ -84,5 +85,8 @@ void draw() {
     scene = 2; // rect(1416, 53, 108, 108)をクリックするとscene = 2
   } else if ((mouseX >= 421 && mouseX <= 421 + 761 && mouseY >= 784 && mouseY <= 784 + 457)&&(scene==0)) {
     scene = 1; // rect(421, 784, 761, 457)をクリックするとscene = 1
+  } else if ((mouseX >= 1232 && mouseX <= 1232 + 294 && mouseY >= 48 && mouseY <= 48 + 134)&&(scene==1)){
+    scene = 0;
   }
+  
 }
