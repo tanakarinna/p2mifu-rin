@@ -41,6 +41,7 @@ void camera(){
     }
   }
   image(news,0,0,1600,1200);
+  image(syuryo,0,0,1600,1200);
   
 
   
