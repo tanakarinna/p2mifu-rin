@@ -27,7 +27,7 @@ void setup() {
 
   // 画像の読み込み
  // size(100,100);
-  img = loadImage("23723924.png"); // "23723924.png" をプロジェクトフォルダに置く
+  img = loadImage("news.png"); // "23723924.png" をプロジェクトフォルダに置く
   if (img == null) {
     println("画像が見つかりません！");
   }
