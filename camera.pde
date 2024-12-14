@@ -40,8 +40,16 @@ void camera(){
       isRectangleVisible2 = false;
     }
   }
-  image(news,0,0,1600,1200);
+ // image(news,0,0,1600,1200);
   image(syuryo,0,0,1600,1200);
+  int elapsedTime = millis() - startTime;
+  if (elapsedTime < 2000) {
+    image(news, 0, 0);
+  } else if (elapsedTime < 4000) {
+    image(hiduke, 0, 0);
+  } else {
+    image(komento, 0, 0);
+  }
   
 
   
