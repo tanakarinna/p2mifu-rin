@@ -3,11 +3,9 @@ void camera(){
  if (cam.available()) {
     cam.read(); 
   }
-
- 
   image(cam, 0, 0, width, height);  
-  fill(255, 0, 0); 
-  text(typedText, 20, height - 30); 
+  //fill(255, 0, 0); 
+  //text(typedText, 20, height - 30); 
    if (millis() - lastTime1 > 5000) { // 5秒ごと
     lastTime1 = millis(); // 現在の時間を記録
     isRectangleVisible1 = true; // 長方形を表示

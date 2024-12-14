@@ -4,12 +4,18 @@ import ddf.minim.effects.*;
 import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
+String typedText = "";  // 入力されたテキストを保持する変数
+int textBoxX = 120;     // テキストボックスのX座標
+int textBoxY = 340;     // テキストボックスのY座標
+int textBoxWidth = 1309; // テキストボックスの幅
+int textBoxHeight = 96; // テキストボックスの高さ
+int maxLength = 20;
 int scene = 0;
 import processing.video.*; 
 Minim minim;
 AudioPlayer player;
 Capture cam; 
-String typedText = ""; 
+//String typedText = ""; 
 PImage asobikata; 
 PImage news;
 PImage top;
@@ -28,10 +34,15 @@ int startTime = 0;
 int elapsedTime = 0;
 
 void setup() {
+  textSize(90);
+  textAlign(LEFT, TOP);
+  // 日本語フォントの設定
+  //PFont font = createFont("Meiryo", 32);
+  //textFont(font);
   size(1600, 1200); 
   frameRate(30); 
   startTime = millis(); 
-  PFont font = createFont("Meiryo", 30); 
+  PFont font = createFont("Meiryo", 90); 
   textFont(font);
   currentImage = puropo;
 
@@ -62,6 +73,13 @@ void setup() {
 
 
 void draw() {
+  // fill(255);
+  // stroke(0);
+  // rect(textBoxX, textBoxY, textBoxWidth, textBoxHeight);
+  
+  // // 入力されたテキストを描画
+  // fill(0);
+  // text(typedText, textBoxX + 10, textBoxY + 10);
  
   if (scene == 1 && !player.isPlaying()) {
     player.loop(); 
@@ -85,6 +103,16 @@ void draw() {
 
 
 }
+// void keyTyped() {
+//   // キー入力が日本語でも処理できるように
+//   if (key == BACKSPACE && typedText.length() > 0) {
+//     // バックスペースが押されたとき
+//     typedText = typedText.substring(0, typedText.length() - 1);
+//   } else {
+//     // 日本語を含む文字の入力を受け入れる
+//     typedText += key;
+//   }
+// }
  void mousePressed() {
   // クリック位置でシーンを切り替える
   if ((mouseX >= 881 && mouseX <= 881 + 186 && mouseY >= 60 && mouseY <= 60 + 104) &&(scene == 0 || scene == 2 || scene == 3)) {
