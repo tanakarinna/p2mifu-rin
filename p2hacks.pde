@@ -1,5 +1,13 @@
-import processing.video.*; // Processing Video ライブラリ
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
 
+import processing.video.*; // Processing Video ライブラリ
+Minim minim;
+AudioPlayer player;
 Capture cam; // カメラオブジェクト
 String typedText = ""; // 入力された文字列を保存する変数
 PImage img; // 画像オブジェクト
@@ -15,6 +23,9 @@ void setup() {
     println("カメラが見つかりません！");
     exit();
   }
+  minim = new Minim(this);
+  player = minim.loadFile("kisyakaiken.mp3");
+  player.loop();
 
   println("利用可能なカメラ:");
   for (int i = 0; i < cameras.length; i++) {
@@ -27,11 +38,12 @@ void setup() {
 
   // 画像の読み込み
  // size(100,100);
-  img = loadImage("news.png"); // "23723924.png" をプロジェクトフォルダに置く
+  img = loadImage("news.png"); //プロジェクトフォルダに置く
   if (img == null) {
     println("画像が見つかりません！");
   }
 }
+
 
 void draw() {
   if(scene == 0){
@@ -56,7 +68,7 @@ void draw() {
   image(cam, 0, 0, width, height);  // 入力された文字列を表示
   fill(255, 0, 0); // 文字色（赤）
   text(typedText, 20, height - 30); // 左下に文字を描画
-
+  image(img,0,0,1600,1200);
   // 画像を描画
   if (img != null) {
     int imgSize = 180; // 画像サイズ
@@ -98,3 +110,8 @@ void switchCamera() {
     println("カメラが見つかりません！");
   }
 }
+// void stop() {
+//   out.close();
+//   minim.stop();
+//   super.stop();
+// }
