@@ -5,24 +5,27 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 
-import processing.video.*; // Processing Video ライブラリ
+import processing.video.*; 
 Minim minim;
 AudioPlayer player;
-Capture cam; // カメラオブジェクト
+Capture cam; 
 String typedText = ""; // 入力された文字列を保存する変数
-PImage img; // 画像オブジェクト
-int selectedCamera = 0; // 選択されたカメラのインデックス
+PImage asobikata; 
+PImage news;
+PImage top;
+int selectedCamera = 0; 
+float startTime;
+boolean isRectangleVisible = false;
+float lastTime = 0; 
 
 void setup() {
-  size(1600, 1200); // ウィンドウサイズを指定
-  PFont font = createFont("Meiryo", 30); // フォントの作成
+  size(1600, 1200); 
+  frameRate(30); 
+  PFont font = createFont("Meiryo", 30); 
   textFont(font);
 
   String[] cameras = Capture.list(); // 利用可能なカメラをリストアップ
-  if (cameras.length == 0) {
-    println("カメラが見つかりません！");
-    exit();
-  }
+  
   minim = new Minim(this);
   player = minim.loadFile("kisyakaiken.mp3");
   player.loop();
@@ -31,17 +34,14 @@ void setup() {
   for (int i = 0; i < cameras.length; i++) {
     println(i + ": " + cameras[i]);
   }
-
+ 
   // 最初のカメラを初期化
   cam = new Capture(this, cameras[selectedCamera]);
   cam.start();
 
-  // 画像の読み込み
- // size(100,100);
-  img = loadImage("news.png"); //プロジェクトフォルダに置く
-  if (img == null) {
-    println("画像が見つかりません！");
-  }
+  
+  news = loadImage("news.png");
+ 
 }
 
 
@@ -63,22 +63,30 @@ void draw() {
     cam.read(); // 新しいフレームを読み込む
   }
 
-  // カメラ映像を画面に描画
-  image(img,0,300,1600,300);
+ 
   image(cam, 0, 0, width, height);  // 入力された文字列を表示
   fill(255, 0, 0); // 文字色（赤）
   text(typedText, 20, height - 30); // 左下に文字を描画
-  image(img,0,0,1600,1200);
-  // 画像を描画
-  if (img != null) {
-    int imgSize = 180; // 画像サイズ
-    image(img, width - imgSize - 20, height - imgSize - 20, imgSize, imgSize); // 右下に画像を表示
+   if (millis() - lastTime > 6000) { // 6秒ごと
+    lastTime = millis(); // 現在の時間を記録
+    isRectangleVisible = true; // 長方形を表示
+    startTime = millis(); // 長方形が表示され始めた時間
   }
 
-  // UIの情報を描画
- // fill(255);
-  //textSize(20);
-  //text("現在のカメラ: " + selectedCamera, 20, 30);
+  if (isRectangleVisible) {
+    // 長方形を透明度を持たせて描画
+    fill(255, 255, 255, 100); // 白色で透明度100
+    rect(0,0, 1600, 1200); // ランダムな位置に200x100の長方形を描画
+    
+    // 0.3秒後に長方形を非表示
+    if (millis() - startTime > 50) {
+      isRectangleVisible = false;
+    }
+  }
+  image(news,0,0,1600,1200);
+  
+
+  
 }
 
 void keyPressed() {
@@ -95,6 +103,21 @@ void keyPressed() {
     // 他のキーが押された場合、文字を追加
     typedText += key;
   }
+  //  if (millis() - lastTime > 6000) { // 6秒ごと
+  //   lastTime = millis(); // 現在の時間を記録
+  //   isRectangleVisible = true; // 長方形を表示
+  //   startTime = millis(); // 長方形が表示され始めた時間
+  // }
+
+  // if (isRectangleVisible) {
+  //   // 長方形を透明度を持たせて描画
+  //   fill(255, 255, 255); // 白色で透明度100
+  //   rect(0,0, 1600, 1200); // ランダムな位置に200x100の長方形を描画
+    
+  //   // 0.3秒後に長方形を非表示
+  //   if (millis() - startTime > 300) {
+  //     isRectangleVisible = false;
+  //   }
 }
 
 // カメラを切り替える関数
@@ -110,8 +133,3 @@ void switchCamera() {
     println("カメラが見つかりません！");
   }
 }
-// void stop() {
-//   out.close();
-//   minim.stop();
-//   super.stop();
-// }
